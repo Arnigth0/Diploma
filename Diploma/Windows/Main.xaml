@@ -1,0 +1,32 @@
+﻿<Window x:Class="Diploma.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="My App" Height="350" Width="525">
+
+    <!--<StackPanel x:Name="buttonsStack">
+        <TextBlock HorizontalAlignment="Center">
+            <Run>IВведите ИИН:</Run>
+        </TextBlock>
+        <
+        <Button x:Name="button1" Margin="10" Content="Войти" FontFamily="Verdana"/>
+    </StackPanel>-->
+
+    <Grid Margin="20,65,20,20" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="1" Content="Введите ИИН:" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="IINField" Width="300"/>
+        <Label Grid.Row="2" Grid.Column="2" Content=""></Label>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Войти" Click="ButtonEnter" Width="105"/>
+    </Grid>
+
+</Window>
