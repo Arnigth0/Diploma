@@ -5,7 +5,7 @@ namespace Diploma.Model
     /// <summary>
     /// Характер клиента
     /// </summary>
-    class ClientCharacteristics
+    public class ClientCharacteristics
     {
         /// <summary>
         /// Уникальный идентификатор клиента.

@@ -3,7 +3,7 @@
     /// <summary>
     /// Финансовая состоятельность клиента
     /// </summary>
-    class Prerequisite
+    public class Prerequisite
     {
         /// <summary>
         /// Уникальный идентификатор заявки

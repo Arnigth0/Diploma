@@ -3,7 +3,7 @@
     /// <summary>
     /// Обеспечение кредита
     /// </summary>
-    class Loan
+    public class Loan
     {
         /// <summary>
         /// Уникальный идентификатор займа

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Diploma.Model
 {
-    class Client
+    public class Client
     {
         /// <summary>
         /// Уникальный идентификатор клиента
