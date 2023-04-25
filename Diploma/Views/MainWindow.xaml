@@ -8,7 +8,9 @@
         WindowStartupLocation="CenterScreen" 
         SizeToContent="WidthAndHeight" 
         Foreground="White"
-        FontFamily="Calibri" ResizeMode="NoResize" ShowInTaskbar="False">
+        FontFamily="Calibri" 
+        ResizeMode="NoResize" 
+        ShowInTaskbar="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -37,45 +39,38 @@
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="250">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="250" VerticalAlignment="Center">
             <Label Content="ИИН: " 
                    Width="39" 
                    HorizontalAlignment="Left"
                    VerticalContentAlignment="Center" 
                    HorizontalContentAlignment="Center" 
-                   Foreground="Black" />
+                   Foreground="Black" Margin="17,-1,0,1" />
             <TextBox Text="" 
                      Name="IIN"
                      Width="180" 
                      HorizontalAlignment="Left" 
-                     Margin="64,13,0,0" 
-                     VerticalAlignment="Top" 
+                     Margin="65,0,0,0" 
+                     VerticalAlignment="Center" 
                      VerticalContentAlignment="Center" 
-                     Height="22"/>
+                     Height="20"/>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="2" Width="200">
-            <Button Content="Поиск" 
-                    Height="25"
-                    Width="80"
-                    Foreground="White" 
-                    Background="#FF04129D" 
-                    BorderBrush="White" 
-                    HorizontalAlignment="Left" 
-                    Margin="1,12,0,8" 
-                    Click="Search"/>
             <Button Height="25"
-                    Width="80"
-                    Content="Добавить" 
+                    Width="150"
+                    Content="Добавить клиента" 
                     Foreground="White" 
                     Background="#FF04129D" 
                     BorderBrush="White" 
-                    HorizontalAlignment="Left" 
-                    Margin="121,11,0,9" Click="Add"/>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="AddClient"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
-            <ListView x:Name="ListView" BorderBrush="Black" Margin="10">
+            <ListView x:Name="ListView" BorderBrush="Black" Margin="10" 
+                      ItemsSource="{Binding clientsForShow}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="20"/>
@@ -95,8 +90,7 @@
                     Width="200"
                     Foreground="White" 
                     Background="#FF04129D" 
-                    BorderBrush="White" 
-                    Click="CreditRating"/>
+                    BorderBrush="White" />
         </Grid>
 
 
@@ -106,8 +100,7 @@
                     Width="200"
                     Foreground="White" 
                     Background="#FF04129D" 
-                    BorderBrush="White"
-                    Click="CreditCalculator"/>
+                    BorderBrush="White"/>
         </Grid>
 
     </Grid>

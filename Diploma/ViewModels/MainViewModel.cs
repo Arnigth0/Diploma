@@ -1,4 +1,5 @@
 ﻿using Diploma.Models;
+using Diploma.Repositories;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,18 @@ using System.Windows;
 
 namespace Diploma.ViewModels
 {
-    public partial class MainViewModel : Window
+    public partial class MainViewModel
     {
-        public ObservableCollection<ClientForShow> ClientsForShow { get; set; }
+        private readonly ClientForShowRepository _clientForShowRepository;
+        public ObservableCollection<ClientForShow> clientsForShow { get; set; } = new ObservableCollection<ClientForShow>();
+        
+
+        public MainViewModel(ClientForShowRepository clientForShowRepository)
+        {
+            _clientForShowRepository = clientForShowRepository;
+            //clientsForShow = (ObservableCollection<ClientForShow>)_clientForShowRepository.GetData();
+        }
+        
 
     }
 }
