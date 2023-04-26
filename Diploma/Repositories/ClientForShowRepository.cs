@@ -31,7 +31,7 @@ namespace Diploma.Repositories
 		                LEFT JOIN Prerequisites pr ON pr.Id = cl.PrerequisitesId
 		                ORDER BY IIN DESC;
                 ").ToList();
-        } 
+        }
 
 
     }

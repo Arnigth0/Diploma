@@ -13,21 +13,6 @@ namespace Diploma.Model
         public int Id { get; set; }
 
         /// <summary>
-        /// Пол клиента.
-        /// </summary>
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// Дата рождения клиента.
-        /// </summary>
-        public DateTime BirthDay { get; set; }
-
-        /// <summary>
-        /// Возраст клиента.
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
         /// Семейное положение клиента (если есть).
         /// </summary>
         public string? MaritalStatus { get; set; }

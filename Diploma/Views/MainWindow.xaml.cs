@@ -16,6 +16,8 @@ namespace Diploma
         public MainWindow()
         {
             InitializeComponent();
+            //DataBaseContext context = new DataBaseContext();    
+
             DataContext = new MainViewModel(new ClientForShowRepository(new DataBaseContext()));
         }
 

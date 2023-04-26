@@ -31,6 +31,21 @@ namespace Diploma.Model
         public string? MiddleName { get; set; }
 
         /// <summary>
+        /// Пол клиента.
+        /// </summary>
+        public string Gender { get; set; }
+
+        /// <summary>
+        /// Дата рождения клиента.
+        /// </summary>
+        public DateTime BirthDay { get; set; }
+
+        /// <summary>
+        /// Возраст клиента.
+        /// </summary>
+        public int Age { get; set; }
+
+        /// <summary>
         /// Адрес клиента
         /// </summary>
         public string? Address { get; set; }

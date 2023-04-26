@@ -17,11 +17,13 @@ namespace Diploma.Views
     /// <summary>
     /// Interaction logic for AddClientWindow.xaml
     /// </summary>
-    public partial class AddClientWindow : Window
+    public partial class AddClientCharacteristicsWindow : Window
     {
-        public AddClientWindow()
+        public AddClientCharacteristicsWindow()
         {
             InitializeComponent();
+
+            
         }
     }
 }

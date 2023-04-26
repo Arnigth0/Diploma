@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Diploma.Views
 {
     /// <summary>
-    /// Interaction logic for AddClientWindow.xaml
+    /// Interaction logic for BorrowerDataWindow.xaml
     /// </summary>
-    public partial class AddClientWindow : Window
+    public partial class BorrowerDataWindow : Window
     {
-        public AddClientWindow()
+        public BorrowerDataWindow()
         {
             InitializeComponent();
         }
