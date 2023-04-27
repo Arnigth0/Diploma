@@ -22,10 +22,13 @@ namespace Diploma
         }
 
         private void AddClient(object sender, RoutedEventArgs e)
-        {
-            this.IsEnabled = false;
+        {       
             AddClientWindow addClientWindow = new();
-            addClientWindow.Show();
+
+            while(addClientWindow.ShowActivated)
+            {
+                this.IsEnabled = false;
+            }
         }
     }
 }

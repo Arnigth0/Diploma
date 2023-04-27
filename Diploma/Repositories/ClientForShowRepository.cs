@@ -21,7 +21,7 @@ namespace Diploma.Repositories
         {
             return _dbContext.ClientsForShow.FromSqlRaw(
                 @"  SELECT TOP 25 IIN, 
-	                (CONCAT(FirstName, ' ',LastName,' ', MiddleName)) AS Fullname, 
+	                (CONCAT(FirstName, ' ', LastName, ' ', MiddleName)) AS Fullname, 
 	                BirthDay, 
 	                OverallCriteriaScore, 
 	                OverallScore 

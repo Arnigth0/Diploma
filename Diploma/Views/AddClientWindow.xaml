@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Diploma.Views"
         mc:Ignorable="d"
         Title="Добавление нового клиента" 
         Height="450" 
-        Width="800">
+        Width="800" ResizeMode="NoResize">
+    
     <Grid Margin="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -17,8 +18,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -27,63 +27,51 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0"
-               Grid.Column="0"
-               Content="ИИН:" 
-               Margin="5"/>
-        <TextBox Grid.Row="0"
-                 Grid.Column="1" 
-                 Name="IIN"
-                 Margin="5"/>
+        <Button Grid.Row="0" Grid.Column="0" Content="В главное меню" 
+                Click="ReturnToMainMenu" Margin="5"
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"
+                Height="35"
+                FontWeight="Bold"
+                Width="200"
+                FontSize="14"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="ИИН:" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="IIN"  Margin="5"/>
 
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               Content="Имя:" 
-               Margin="5"/>
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Name="FirstName" 
-                 Margin="5"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Имя:" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="FirstName"  Margin="5"/>
 
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               Content="Фамилия:" 
-               Margin="5"/>
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 Name="LastName" 
-                 Margin="5"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Фамилия:"  Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="LastName"  Margin="5"/>
 
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               Content="Отчество:" 
-               Margin="5"/>
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 Name="MiddleName" 
-                 Margin="5"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Отчество:"  Margin="5"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="MiddleName"  Margin="5"/>
 
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               Content="Адресс:" 
-               Margin="5"/>
-        <TextBox Grid.Row="4"
-                 Grid.Column="1"
-                 Name="Address" 
-                 Margin="5"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Адресс:"  Margin="5"/>
+        <TextBox Grid.Row="5"  Grid.Column="1"  Name="Address"  Margin="5"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Пол заемщика:" Margin="5"/>
-        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Vertical" Name="Gender" Margin="5">
+        <Label Grid.Row="6" Grid.Column="0" Content="Пол заемщика:" Margin="5"/>
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Vertical" Name="Gender" Margin="5">
             <RadioButton Content="Мужчина" Margin="5" />
             <RadioButton Content="Женщина" Margin="5" />
         </StackPanel>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Дата рождения клиента" Margin="5"/>
-        <DatePicker Grid.Row="6" Grid.Column="1" Margin="5" Name="BirthDay"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Дата рождения клиента" Margin="5"/>
+        <DatePicker Grid.Row="7" Grid.Column="1" Margin="5" Name="BirthDay"/>
 
         <Button Grid.Row="8"
                 Grid.Column="1"
-                Content="Далее" 
-                Margin="5"/>
+                Content="Сохранить" 
+                Margin="5"
+                Width="250"
+                Height="30"
+                FontSize="14"
+                FontWeight="Bold"
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"
+                Click="SaveButton"/>
     </Grid>
 </Window>

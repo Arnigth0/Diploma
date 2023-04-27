@@ -23,5 +23,12 @@ namespace Diploma.Views
         {
             InitializeComponent();
         }
+
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e) => this.Close();
+
+        private void SaveButton(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

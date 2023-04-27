@@ -1,4 +1,5 @@
 ﻿using Diploma.Model;
+using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,12 @@ namespace Diploma.Repositories
 
         public void Add(Client client)
         {
-            _dbContext.Add(client);
-            _dbContext.SaveChanges();
+            _dbContext.Clients.FromSqlRaw("INSERT INTO Clients");
         }
 
         public Client FindById(int id)
         {
-            return _dbContext.Set<Client>().Find(id);
+            return _dbContext.Clients.FromSqlRaw(@$"SELECT * FROM Clients WHERE id = @id;").FirstOrDefault();
         }
 
         public List<Client> FindAll()
