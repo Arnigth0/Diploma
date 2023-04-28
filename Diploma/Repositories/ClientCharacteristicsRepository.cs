@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Diploma.Repositories
 {
-    public class PrepequisiteRepository
+    public class ClientCharacteristicsRepository
     {
         private readonly DataBaseContext _dbContext;
 
-        public PrepequisiteRepository(DataBaseContext dataBaseContext)
+        public ClientCharacteristicsRepository(DataBaseContext dataBaseContext)
         {
             _dbContext = dataBaseContext;
         }
@@ -19,12 +19,13 @@ namespace Diploma.Repositories
         {
             try
             {
-                return _dbContext.Prerequisites.Count();
+                return _dbContext.ClientCharacteristics.Count();
             }
             catch
             {
                 return 0;
             }
         }
+
     }
 }

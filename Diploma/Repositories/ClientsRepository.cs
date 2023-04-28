@@ -20,7 +20,7 @@ namespace Diploma.Repositories
 
         public void Add(Client client)
         {
-            _dbContext.Clients.FromSqlRaw("INSERT INTO Clients");
+            _dbContext.Clients.Add(client);
         }
 
         public Client FindById(int id)

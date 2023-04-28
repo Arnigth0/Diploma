@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace Diploma.Repositories
 {
-    internal class LoanRepository
+    public class LoanRepository
     {
+        private readonly DataBaseContext _dbContext;
+
+        public LoanRepository(DataBaseContext dataBaseContext)
+        {
+            _dbContext = dataBaseContext;
+        }
+
+        public int GetCount()
+        {
+            try
+            {
+                return _dbContext.Loans.Count();
+            }
+            catch 
+            { 
+                return 0; 
+            }
+        }
     }
 }

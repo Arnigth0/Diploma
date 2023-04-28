@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Добавление нового клиента" 
-        Height="450" 
+        Height="350" 
         Width="800" ResizeMode="NoResize">
     
     <Grid Margin="5">
@@ -16,10 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -51,15 +48,6 @@
 
         <Label Grid.Row="5" Grid.Column="0" Content="Адресс:"  Margin="5"/>
         <TextBox Grid.Row="5"  Grid.Column="1"  Name="Address"  Margin="5"/>
-
-        <Label Grid.Row="6" Grid.Column="0" Content="Пол заемщика:" Margin="5"/>
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Vertical" Name="Gender" Margin="5">
-            <RadioButton Content="Мужчина" Margin="5" />
-            <RadioButton Content="Женщина" Margin="5" />
-        </StackPanel>
-
-        <Label Grid.Row="7" Grid.Column="0" Content="Дата рождения клиента" Margin="5"/>
-        <DatePicker Grid.Row="7" Grid.Column="1" Margin="5" Name="BirthDay"/>
 
         <Button Grid.Row="8"
                 Grid.Column="1"

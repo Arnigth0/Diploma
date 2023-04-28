@@ -3,18 +3,18 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using Diploma.Models;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml;
-using OfficeOpenXml;
-using System.IO;
+using Diploma.Services;
+using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Word;
+using Excel = Microsoft.Office.Interop.Excel.Application;
+using Word = Microsoft.Office.Interop.Word.Application;
 
 namespace Diploma.Views
 {
     /// <summary>
     /// Interaction logic for CreditCalculatorWindow.xaml
     /// </summary>
-    public partial class CreditCalculatorWindow : Window
+    public partial class CreditCalculatorWindow : System.Windows.Window
     {
         public CreditCalculatorWindow()
         {
@@ -129,47 +129,46 @@ namespace Diploma.Views
 
         private void ExportToDocxButton(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                string path = string.Empty;
+
+                if (this.PaymentSchedule.ItemsSource is ObservableCollection<Payment> payments)
+                { 
+                    WordHelper wordHelper = new();
+                    path = wordHelper.CreateWord(payments);
+                }
+
+                Word word = new();
+                Document document = word.Documents.Open(path);
+                word.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void ExportToExcelButton(object sender, RoutedEventArgs e)
         {
-            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            try
+            {
+                string path = string.Empty;
 
-            //using(var excelPackage = new ExcelPackage())
-            //{
-            //    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("График платежa");
+                if (this.PaymentSchedule.ItemsSource is ObservableCollection<Payment> payments)
+                {
+                    ExcelHelper excelHelper = new ExcelHelper();
+                    path = excelHelper.CreateExcel(payments);
+                }
 
-            //    worksheet.Cells[1, 1].Value = "Период";
-            //    worksheet.Cells[1, 2].Value = "Сумма платежа";
-            //    worksheet.Cells[1, 3].Value = "Проценты";
-            //    worksheet.Cells[1, 4].Value = "Главный долг";
-            //    worksheet.Cells[1, 5].Value = "Остаток задолжности";
-
-            //    ObservableCollection<Payment>? payments = this.PaymentSchedule.ItemsSource as ObservableCollection<Payment>;
-
-            //    // заполняем ячейки данными из класса
-            //    if (payments != null)
-            //    {
-            //        for (int i = 0; i < payments.Count; i++)
-            //        {
-            //            worksheet.Cells[i + 2, 1].Value = payments[i].Period;
-            //            worksheet.Cells[i + 2, 2].Value = payments[i].Amount;
-            //            worksheet.Cells[i + 2, 3].Value = payments[i].Interest;
-            //            worksheet.Cells[i + 2, 4].Value = payments[i].Principal;
-            //            worksheet.Cells[i + 2, 5].Value = payments[i].Balance;
-            //        }
-
-            //        using (FileStream outputStream = new(@$"График платежa {DateTime.Now:dd.MM.yyyy hh:mm}.xlsx", FileMode.Create, FileAccess.Write))
-            //        {
-            //            excelPackage.SaveAs("C:\\Users\\arman\\OneDrive\\Рабочий стол\\" + outputStream);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        return;
-            //    }
-            //}           
+                Excel excel = new();
+                Workbook workbook = excel.Workbooks.Open(path);
+                excel.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
