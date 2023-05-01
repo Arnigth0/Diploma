@@ -68,8 +68,9 @@
                     Click="AddClient"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-            <ListView x:Name="ListView" BorderBrush="Black" Margin="10" 
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" >
+            <ListView x:Name="ClientsForShowSchedule" BorderBrush="Black" Margin="10" 
+                      MouseDoubleClick="GoToBorrowerData"
                       ItemsSource="{Binding clientsForShow}">
                 <ListView.View>
                     <GridView>
@@ -89,6 +90,7 @@
                     Height="40"
                     Width="200"
                     Foreground="White" 
+                    Click="GoToBorrowerData"
                     Background="#FF04129D" 
                     BorderBrush="White" />
         </Grid>
@@ -100,7 +102,8 @@
                     Width="200"
                     Foreground="White" 
                     Background="#FF04129D" 
-                    BorderBrush="White"/>
+                    BorderBrush="White"
+                    Click="GoToCreditCalculator"/>
         </Grid>
 
     </Grid>

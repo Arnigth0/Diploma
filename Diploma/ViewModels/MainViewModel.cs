@@ -13,14 +13,14 @@ namespace Diploma.ViewModels
 {
     public partial class MainViewModel
     {
-        private readonly ClientForShowRepository _clientForShowRepository;
-        public ObservableCollection<ClientForShow> clientsForShow { get; set; } = new ObservableCollection<ClientForShow>();
+        //private readonly ClientForShowRepository _clientForShowRepository;
+        //public List<ClientForShow> clientsForShow { get; set; } = new List<ClientForShow>();
         
 
-        public MainViewModel(ClientForShowRepository clientForShowRepository)
+        public MainViewModel()
         {
-            _clientForShowRepository = clientForShowRepository;
-            //clientsForShow = (ObservableCollection<ClientForShow>)_clientForShowRepository.GetData();
+            //_clientForShowRepository = clientForShowRepository;
+            //clientsForShow = (List<ClientForShow>)_clientForShowRepository.FindAll();
         }
         
 

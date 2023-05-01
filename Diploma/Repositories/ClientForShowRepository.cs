@@ -2,35 +2,35 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Diploma.Repositories
 {
     public class ClientForShowRepository
     {
         private readonly DataBaseContext _dbContext;
+        private readonly DbSet<ClientForShow> _dbSet;
 
         public ClientForShowRepository(DataBaseContext dataBaseContext)
         {
             _dbContext = dataBaseContext;
+            _dbSet = dataBaseContext.Set<ClientForShow>();
         }
 
-        public IList<ClientForShow> GetData()
+        public void Add(ClientForShow clientForShow)
         {
-            return _dbContext.ClientsForShow.FromSqlRaw(
-                @"  SELECT TOP 25 IIN, 
-	                (CONCAT(FirstName, ' ', LastName, ' ', MiddleName)) AS Fullname, 
-	                BirthDay, 
-	                OverallCriteriaScore, 
-	                OverallScore 
-	                FROM Clients AS cl
-		                LEFT JOIN ClientCharacteristics c ON cl.ClientCharacterId = c.Id
-		                LEFT JOIN Loans ln ON ln.Id = cl.LoanId
-		                LEFT JOIN Prerequisites pr ON pr.Id = cl.PrerequisitesId
-		                ORDER BY IIN DESC;
-                ").ToList();
+            _dbSet.Add(clientForShow);
+            _dbContext.SaveChanges();
+        }
+
+        public List<ClientForShow> FindAll()
+        {
+            if (!_dbSet.Any()) return new();
+            return _dbSet.ToList();           
         }
 
 

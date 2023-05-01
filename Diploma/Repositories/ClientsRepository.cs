@@ -1,6 +1,7 @@
 ﻿using Diploma.Model;
 using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,39 +13,55 @@ namespace Diploma.Repositories
     public class ClientsRepository
     {
         private readonly DataBaseContext _dbContext;
+        private readonly DbSet<Client> _clientsSet;
 
         public ClientsRepository(DataBaseContext dataBaseContext)
         {
             _dbContext = dataBaseContext;
+            _clientsSet = dataBaseContext.Set<Client>(); 
         }
 
         public void Add(Client client)
         {
-            _dbContext.Clients.Add(client);
+            _clientsSet.Add(client);
+            _dbContext.SaveChanges();
         }
 
-        public Client FindById(int id)
+        public int GetCount()
         {
-            return _dbContext.Clients.FromSqlRaw(@$"SELECT * FROM Clients WHERE id = @id;").FirstOrDefault();
+            try
+            {
+                return _clientsSet.Count();
+            }
+            catch
+            {
+                return 1;
+            }
         }
 
         public List<Client> FindAll()
         {
-            return _dbContext.Set<Client>().ToList();
+            return _clientsSet.ToList();
+        }
+
+        public Client FindByIIN(string iin)
+        {
+            return _clientsSet.FirstOrDefault(c => c.IIN == iin);
         }
 
         public void Update(Client client)
         {
-            _dbContext.Update(client);
+            _clientsSet.Update(client);
             _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var client = FindById(id);
+            var client = _clientsSet.Find(id);
+
             if (client != null)
             {
-                _dbContext.Remove(client);
+                _clientsSet.Remove(client);
                 _dbContext.SaveChanges();
             }
         }

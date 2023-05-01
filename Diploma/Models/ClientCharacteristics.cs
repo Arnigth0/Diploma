@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Diploma.Model
 {
@@ -76,6 +77,11 @@ namespace Diploma.Model
         /// Имеет ли клиент судимость (если есть).
         /// </summary>
         public bool? HasCriminalRecord { get; set; }
+
+        /// <summary>
+        /// Итоговая оценка клиента по характеру
+        /// </summary>
+        public float? OverallCharacteristicsScore { get; set; }
 
         /// <summary>
         /// Уникальный идентификатор клиента, которому принадлежат данные.

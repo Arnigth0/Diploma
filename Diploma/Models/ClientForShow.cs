@@ -27,16 +27,16 @@ namespace Diploma.Models
         /// <summary>
         /// Дата рождения клиента.
         /// </summary>
-        public DateOnly BirthDay { get; set; }
+        public string BirthDay { get; set; }
 
         /// <summary>
         /// Общий балл критериев заемщика
         /// </summary>
-        public decimal OverallCriteriaScore { get; set; }
+        public decimal? OverallCriteriaScore { get; set; }
 
         /// <summary>
         /// Общая оценка займа
         /// </summary>
-        public decimal OverallScore { get; set; }
+        public decimal? OverallScore { get; set; }
     }
 }

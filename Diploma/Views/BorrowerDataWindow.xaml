@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Diploma.Views"
         mc:Ignorable="d"
-        Title="BorrowerDataWindow" Height="450" Width="800">
-    <Grid>
+        Title="BorrowerDataWindow" Height="350" Width="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="1" Grid.Column="0" Content="В главное меню" Margin="10" Width="140" Height="30"
+                FontSize="14"
+                FontWeight="Bold"
+                Click="ReturnBack" 
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"/>
+
+        <TextBlock Grid.Row="2" Text="Имя заемщика:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="FullName" Margin="10" VerticalAlignment="Center" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="3" Text="ИИН:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="IIN" Margin="10" VerticalAlignment="Center" IsReadOnly="True"/>
         
+        <TextBlock Grid.Row="4" Text="Дата рождения:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="BirthDay" Margin="10" VerticalAlignment="Center" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="5" Text="Адрес проживания:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="Address" Margin="10" VerticalAlignment="Center" IsReadOnly="True"/>
+
+        <Button Grid.Row="6" Grid.Column="1" Content="Продолжить" Margin="10" Width="150" Height="40"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="Continue" 
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"/>
     </Grid>
 </Window>

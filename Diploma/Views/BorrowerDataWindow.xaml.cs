@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Diploma.Model;
+using Diploma.Repositories;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +22,41 @@ namespace Diploma.Views
     /// </summary>
     public partial class BorrowerDataWindow : Window
     {
-        public BorrowerDataWindow()
+        private readonly ClientsRepository _clientRepository;
+        private readonly Client _client;
+
+        public BorrowerDataWindow(ClientsRepository clientRepository, string IIN)
         {
             InitializeComponent();
+            _clientRepository = clientRepository;
+            _client = _clientRepository.FindByIIN(IIN);
+
+            FullName.Text = _client.FirstName + " " + _client.LastName + (string.IsNullOrEmpty(_client.MiddleName) ? "" : " " + _client.MiddleName);
+            this.IIN.Text = IIN;
+            this.Address.Text = _client.Address;
+            BirthDay.Text = _client.BirthDay.ToString("dd MMM yyyy") + " г.р.";
+        }
+
+        public void ReturnBack(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new(
+                _clientRepository,
+                null,
+                null,
+                null,
+                null
+            );
+
+            main.Show();
+            Close();
+        }
+
+        public void Continue(object sender, RoutedEventArgs e)
+        {
+            //AddClientCharacteristicsWindow addClientCharacteristicsWindow = new(_client);
+            //addClientCharacteristicsWindow.Show();
+
+            //Close();
         }
     }
 }

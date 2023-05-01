@@ -10,7 +10,6 @@ namespace Diploma.Services
     {
         private Application _excel;
         private Workbook _workbook;
-        private string _filePath;
 
         public ExcelHelper()
         {

@@ -7,7 +7,6 @@ public class WordHelper : IDisposable
 {
     private Application _wordApp;
     private Document _doc;
-    private string _filePath;
 
     public WordHelper()
     {

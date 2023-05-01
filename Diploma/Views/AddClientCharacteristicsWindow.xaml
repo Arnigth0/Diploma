@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Характер Клиента" 
         Height="600" 
-        Width="800" 
+        Width="500" 
         FontFamily="Calibri" 
         WindowStyle="SingleBorderWindow">
     
@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,10 +45,7 @@
         </StackPanel>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Количество детей, проживающих с клиентом" />
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="5" Name="NumberOfChildren">
-            <RadioButton Content="До 2-х" />
-            <RadioButton Content="3 и более" />
-        </StackPanel>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="NumberOfChildren"  Margin="5"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Место проживания" />
         <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" Name="PlaceOfResidence">
@@ -58,10 +55,7 @@
         </ComboBox>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Срок проживания по последнему адресу, лет" />
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="5" Name="LengthOfResidence">
-            <RadioButton Content="До 4-х лет" />
-            <RadioButton Content="Свыше 4-х лет" />
-        </StackPanel>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="LengthOfResidence"  Margin="5"/>
 
         <Label Grid.Row="4" Grid.Column="0" Content="Образование" />
         <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" Name="Education">
@@ -72,13 +66,37 @@
 
         <Label Grid.Row="5" Grid.Column="0" Content="Занятость" />
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Vertical" Margin="5" Name="Employment">
-            <RadioButton Content="Постоянная" />
-            <RadioButton Content="Перидическая" />
-            <RadioButton Content="Временная" />
+            <RadioButton Content="Постоянная" Click="EmploymentClick"/>
+            <RadioButton Content="Периодическая" Click="EmploymentClick"/>
+            <RadioButton Content="Временная" Click="EmploymentClick"/>
         </StackPanel>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Сфера деятельности работодателя" Name="EmployerIndustryLabel"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" Margin="5" Name="EmployerIndustry">
+        <Label Grid.Row="6" Grid.Column="0" Content="Является ли заемщик сотрудником банка" />
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Vertical" Margin="5" Name="IsBankEmployee">
+            <RadioButton Content="Да" />
+            <RadioButton Content="Нет" />
+        </StackPanel>
+
+        <Label Grid.Row="7" Grid.Column="0" Content="Кредитовался ли заемщик ранее" />
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasPreviousCreditHistory">
+            <RadioButton Content="Да" />
+            <RadioButton Content="Нет" />
+        </StackPanel>
+
+        <Label Grid.Row="8" Grid.Column="0" Content="Имеются ли у него непогашенные кредиты" />
+        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasOutstandingLoans">
+            <RadioButton Content="Да" />
+            <RadioButton Content="Нет" />
+        </StackPanel>
+
+        <Label Grid.Row="9" Grid.Column="0" Content="Наличие судимости" />
+        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasCriminalRecord">
+            <RadioButton Content="Да" />
+            <RadioButton Content="Нет" />
+        </StackPanel>
+
+        <Label Grid.Row="10" Grid.Column="0" Content="Сфера деятельности работодателя" Name="EmployerIndustryLabel" Visibility="Hidden"/>
+        <ComboBox Grid.Row="10" Grid.Column="1" Margin="5" Name="EmployerIndustry" Visibility="Hidden">
             <ComboBoxItem Content="Производство" />
             <ComboBoxItem Content="Транспорт" />
             <ComboBoxItem Content="Добыча полезных ископаемых" />
@@ -87,44 +105,25 @@
             <ComboBoxItem Content="Иное" />
         </ComboBox>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Статус работы" />
-        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Vertical" Margin="5" Name="EmploymentStatus">
+        <Label Grid.Row="11" Grid.Column="0" Content="Статус работы" Visibility="Hidden" Name="EmploymentStatusLabel"/>
+        <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Vertical" Margin="5" Name="EmploymentStatus" Visibility="Hidden">
             <RadioButton Content="Неполная ставка" />
             <RadioButton Content="Полная ставка" />
         </StackPanel>
-        
-        <Label Grid.Row="8" Grid.Column="0" Content="Стаж работы текущей работы, лет" />
-        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Vertical" Margin="5" Name="EmploymentLength">
-            <RadioButton Content="До 4-х лет" />
-            <RadioButton Content="Свыше 4-х лет" />
-        </StackPanel>
 
-        <Label Grid.Row="9" Grid.Column="0" Content="Является ли заемщик сотрудником банка" />
-        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Vertical" Margin="5" Name="IsBankEmployee">
-            <RadioButton Content="Да" />
-            <RadioButton Content="Нет" />
-        </StackPanel>
-
-        <Label Grid.Row="10" Grid.Column="0" Content="Кредитовался ли заемщик ранее" />
-        <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasPreviousCreditHistory">
-            <RadioButton Content="Да" />
-            <RadioButton Content="Нет" />
-        </StackPanel>
-
-        <Label Grid.Row="11" Grid.Column="0" Content="Имеются ли у него непогашенные кредиты" />
-        <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasOutstandingLoans">
-            <RadioButton Content="Да" />
-            <RadioButton Content="Нет" />
-        </StackPanel>
-
-        <Label Grid.Row="12" Grid.Column="0" Content="Наличие судимости" />
-        <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Vertical" Margin="5" Name="HasCriminalRecord">
-            <RadioButton Content="Да" />
-            <RadioButton Content="Нет" />
-        </StackPanel>
+        <Label Grid.Row="12" Grid.Column="0" Content="Стаж работы текущей работы, лет" Name="EmploymentLengthLabel"  Visibility="Hidden"/>
+        <TextBox Grid.Row="12" Grid.Column="1" Name="EmploymentLength"  Margin="5" Visibility="Hidden"/>
 
         <Button Grid.Row="13" 
                 Grid.Column="1"
-                Content="Далее"/>
+                Content="Далее"
+                Click="GoToPrerequisiteWindow"
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"
+                Width="140"
+                Height="40"/>
     </Grid>
 </Window>

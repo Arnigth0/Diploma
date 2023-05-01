@@ -4,16 +4,8 @@ using DocumentFormat.OpenXml.Bibliography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Diploma.Models;
 
 namespace Diploma.Views
 {
@@ -22,25 +14,41 @@ namespace Diploma.Views
     /// </summary>
     public partial class AddClientWindow : Window
     {
-        private readonly DataBaseContext _dbContext;
         private readonly ClientsRepository _clientsRepository;
         private readonly PrepequisiteRepository _prepequisiteRepository;
         private readonly LoanRepository _loanRepository;
         private readonly ClientCharacteristicsRepository _clientCharacteristicsRepository;
+        private readonly ClientForShowRepository _clientForShowRepository;
 
-        public AddClientWindow()
+        public AddClientWindow(
+            ClientsRepository clientsRepository, 
+            ClientForShowRepository clientForShowRepository, 
+            ClientCharacteristicsRepository clientCharacteristicsRepository, 
+            LoanRepository loanRepository, 
+            PrepequisiteRepository prepequisiteRepository
+            )
         {
             InitializeComponent();
-            _dbContext = new DataBaseContext();
-            
-            _clientsRepository = new ClientsRepository(_dbContext);
-            _prepequisiteRepository = new PrepequisiteRepository(_dbContext);
-            _loanRepository = new LoanRepository(_dbContext);
-            _clientCharacteristicsRepository = new ClientCharacteristicsRepository(_dbContext);
-            
+            _clientsRepository = clientsRepository;
+            _clientCharacteristicsRepository = clientCharacteristicsRepository;
+            _loanRepository = loanRepository;
+            _prepequisiteRepository = prepequisiteRepository;
+            _clientForShowRepository = clientForShowRepository;       
         }
 
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e) => this.Close();
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new (
+                _clientsRepository,
+                _clientForShowRepository,
+                _clientCharacteristicsRepository,
+                _loanRepository,
+                _prepequisiteRepository
+            );
+
+            main.Show();
+            Close();
+        }
 
         private void SaveButton(object sender, RoutedEventArgs e)
         {
@@ -70,7 +78,14 @@ namespace Diploma.Views
                 //        {client.LoanId}{client.ClientCharacterId}{client.PrerequisitesId}
                 //");
 
-                //_clientsRepository.Add(client);
+                _clientsRepository.Add(client);
+
+                _clientForShowRepository.Add(new ClientForShow()
+                {
+                    IIN = client.IIN,
+                    Fullname = client.FirstName + " " + client.LastName + (string.IsNullOrEmpty(client.MiddleName) ? "" : " " + client.MiddleName),
+                    BirthDay = client.BirthDay.ToString()
+                });
 
                 MessageBox.Show("Успешно завершено!");
             }

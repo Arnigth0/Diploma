@@ -23,7 +23,7 @@ namespace Diploma.Repositories
             }
             catch 
             { 
-                return 0; 
+                return 1; 
             }
         }
     }
