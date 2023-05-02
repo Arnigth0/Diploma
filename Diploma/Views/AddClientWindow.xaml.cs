@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Diploma.Models;
+using Diploma.Enums;
 
 namespace Diploma.Views
 {
@@ -116,9 +117,9 @@ namespace Diploma.Views
             return new DateTime(year + century, month, day);
         }
 
-        private static string GetGenderByIIN(string IIN)
+        private static GenderType GetGenderByIIN(string IIN)
         {
-            return Convert.ToInt32(IIN.Substring(6, 1)) % 2 == 0 ? "Женщина" : "Мужчина";
+            return Convert.ToInt32(IIN.Substring(6, 1)) % 2 == 0 ? GenderType.Female : GenderType.Male;
         }
     }
 }

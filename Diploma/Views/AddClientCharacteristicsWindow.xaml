@@ -55,7 +55,7 @@
         </ComboBox>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Срок проживания по последнему адресу, лет" />
-        <TextBox Grid.Row="1" Grid.Column="1" Name="LengthOfResidence"  Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="LengthOfResidence" Margin="5"/>
 
         <Label Grid.Row="4" Grid.Column="0" Content="Образование" />
         <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" Name="Education">

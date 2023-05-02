@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Diploma.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Diploma.Model
 {
     public class Client
     {
+
         /// <summary>
         /// Уникальный идентификатор клиента
         /// </summary>
@@ -33,7 +35,7 @@ namespace Diploma.Model
         /// <summary>
         /// Пол клиента.
         /// </summary>
-        public string Gender { get; set; }
+        public GenderType Gender { get; set; }
 
         /// <summary>
         /// Дата рождения клиента.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diploma.Enums;
+using System;
 using System.Runtime.InteropServices;
 
 namespace Diploma.Model
@@ -16,7 +17,7 @@ namespace Diploma.Model
         /// <summary>
         /// Семейное положение клиента (если есть).
         /// </summary>
-        public string? MaritalStatus { get; set; }
+        public MaritalStatus? MaritalStatus { get; set; }
 
         /// <summary>
         /// Количество детей у клиента (если есть).
@@ -26,7 +27,7 @@ namespace Diploma.Model
         /// <summary>
         /// Место проживания клиента (если есть).
         /// </summary>
-        public string? PlaceOfResidence { get; set; }
+        public PlaceOfResidence? PlaceOfResidence { get; set; }
 
         /// <summary>
         /// Длительность проживания клиента по текущему месту жительства (если есть).
@@ -36,22 +37,22 @@ namespace Diploma.Model
         /// <summary>
         /// Образование клиента (если есть).
         /// </summary>
-        public string? Education { get; set; }
+        public Education? Education { get; set; }
 
         /// <summary>
         /// Тип занятости клиента (если есть).
         /// </summary>
-        public string? Employment { get; set; }
+        public Employment? Employment { get; set; }
 
         /// <summary>
         /// Отрасль работодателя клиента (если есть).
         /// </summary>
-        public string? EmployerIndustry { get; set; }
+        public EmployerIndustry? EmployerIndustry { get; set; }
 
         /// <summary>
         /// Статус занятости клиента (если есть).
         /// </summary>
-        public string? EmploymentStatus { get; set; }
+        public EmploymentStatus? EmploymentStatus { get; set; }
 
         /// <summary>
         /// Длительность работы на текущем месте (если есть).

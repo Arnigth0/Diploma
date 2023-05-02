@@ -53,10 +53,10 @@ namespace Diploma.Views
 
         public void Continue(object sender, RoutedEventArgs e)
         {
-            //AddClientCharacteristicsWindow addClientCharacteristicsWindow = new(_client);
-            //addClientCharacteristicsWindow.Show();
+            AddClientCharacteristicsWindow addClientCharacteristicsWindow = new(_client);
+            addClientCharacteristicsWindow.Show();
 
-            //Close();
+            Close();
         }
     }
 }

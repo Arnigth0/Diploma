@@ -10,6 +10,8 @@
         /// </summary>
         public int Id { get; set; }
 
+        #region Characteristics
+
         /// <summary>
         /// Минимальный уровень прожиточного минимума для региона заемщика
         /// </summary>
@@ -18,13 +20,16 @@
         /// <summary>
         /// Количество иждивенцев
         /// </summary>
-        public float DependentPersonsCount { get; set; }
+        public int DependentPersonsCount { get; set; }
 
         /// <summary>
         /// Максимальный ежемесячный платеж по займу, который может позволить заемщик
         /// </summary>
         public float MaxMonthlyLoanPayment { get; set; }
 
+        #endregion
+
+        #region Income
         /// <summary>
         /// Средняя заработная плата заемщика за последние 3 месяца
         /// </summary>
@@ -39,7 +44,9 @@
         /// Общий ежемесячный доход заемщика
         /// </summary>
         public float TotalMonthlyIncome { get; set; }
+        #endregion
 
+        #region Expenses
         /// <summary>
         /// Расходы заемщика на содержание семьи
         /// </summary>
@@ -66,24 +73,25 @@
         public float OtherExpensesLast3Months { get; set; }
 
         /// <summary>
-        /// Общие ежемесячные расходы заемщика
+        /// Итоговый среднемесячный расход
         /// </summary>
         public float TotalMonthlyExpenses { get; set; }
 
         /// <summary>
-        /// Ежемесячный остаток денежных средств после вычета расходов из доходов
+        /// Среднемесячный располагаемый доход
         /// </summary>
         public float MonthlyDisposableIncome { get; set; }
 
         /// <summary>
-        /// Доля ежемесячного платежа по займу от общих ежемесячных расходов заемщика
+        /// Доля ежемесячного платежа
         /// </summary>
         public float LoanPaymentPercentage { get; set; }
 
         /// <summary>
-        /// Общий балл критериев заемщика
+        /// Итоговая оценка по критерию
         /// </summary>
         public float OverallCriteriaScore { get; set; }
+        #endregion
 
         /// <summary>
         /// Уникальный идентификатор заемщика
