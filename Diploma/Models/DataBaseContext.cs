@@ -1,8 +1,7 @@
 ﻿using Diploma.Model;
-using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Diploma.Repositories
+namespace Diploma.Models
 {
     public class DataBaseContext : DbContext
     {
@@ -16,7 +15,7 @@ namespace Diploma.Repositories
         {
             //Использовался единожды для создания таблиц и отношений
             //Не использовать!
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

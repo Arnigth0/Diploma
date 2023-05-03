@@ -1,9 +1,6 @@
 ﻿using Diploma.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Diploma.Models;
 
 namespace Diploma.Repositories
 {
@@ -16,9 +13,21 @@ namespace Diploma.Repositories
             _dbContext = dataBaseContext;
         }
 
-        public void Add(Prerequisite prerequisite)
+        public int Add(Prerequisite prerequisite)
         {
-            _dbContext.Add(prerequisite);
+            var Prerequisite = _dbContext.Prerequisites.FirstOrDefault(x => x.ClientId == prerequisite.ClientId);
+
+            if(Prerequisite == null)
+            {
+                Prerequisite = prerequisite;
+            }
+            else
+            {
+                _dbContext.Add(prerequisite);
+            }
+            
+            _dbContext.SaveChanges();
+            return prerequisite.Id;
         }
 
         public int GetCount()

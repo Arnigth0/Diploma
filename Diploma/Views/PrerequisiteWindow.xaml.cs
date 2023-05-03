@@ -1,19 +1,7 @@
 ﻿using Diploma.Model;
 using Diploma.Repositories;
 using Diploma.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Diploma.Views
 {
@@ -26,17 +14,17 @@ namespace Diploma.Views
         private readonly Client _client;
         private readonly Checks _checks;
         private readonly PrerequisiteRepository _prerequisiteRepository;
+        private readonly ClientForShowRepository _clientForShowRepository;
 
 
-        public PrerequisiteWindow(Client client)
+        public PrerequisiteWindow(Client client, ClientForShowRepository clientForShowRepository)
         {
             InitializeComponent();
+            _clientForShowRepository = clientForShowRepository;
             _prerequisite = new Prerequisite();
             _prerequisiteRepository = new PrerequisiteRepository(new());
             _checks = new Checks();
             _client = client;
-            _prerequisite.Client = client;
-            _client.Prerequisites = new() { _prerequisite };
         }
 
         private void CalulateTotalMonthlyIncome(object sender, RoutedEventArgs e)
@@ -47,11 +35,11 @@ namespace Diploma.Views
                 _checks.IsTextBoxEmpty(AverageSalaryLast3Months) && 
                 _checks.IsTextBoxEmpty(AnnualOtherIncome))
             {
-                _prerequisite.MinimumLivingWage = float.Parse(MinimumLivingWage.Text.ToString());
-                _prerequisite.DependentPersonsCount = int.Parse(DependentPersonsCount.Text.ToString());
-                _prerequisite.MaxMonthlyLoanPayment = float.Parse(MaxMonthlyLoanPayment.Text.ToString());
-                _prerequisite.AverageSalaryLast3Months = float.Parse(AverageSalaryLast3Months.Text.ToString());
-                _prerequisite.AnnualOtherIncome = float.Parse(AnnualOtherIncome.Text.ToString());
+                _prerequisite.MinimumLivingWage = float.Parse(MinimumLivingWage.Text.ToString().Replace('.', ','));
+                _prerequisite.DependentPersonsCount = int.Parse(DependentPersonsCount.Text.ToString().Replace('.', ','));
+                _prerequisite.MaxMonthlyLoanPayment = float.Parse(MaxMonthlyLoanPayment.Text.ToString().Replace('.', ','));
+                _prerequisite.AverageSalaryLast3Months = float.Parse(AverageSalaryLast3Months.Text.ToString().Replace('.', ','));
+                _prerequisite.AnnualOtherIncome = float.Parse(AnnualOtherIncome.Text.ToString().Replace('.', ','));
 
                 _prerequisite.TotalMonthlyIncome = _prerequisite.AverageSalaryLast3Months + (_prerequisite.AnnualOtherIncome / 12);         
                 _prerequisite.FamilyMaintenanceExpenses = (_prerequisite.DependentPersonsCount + 1) * _prerequisite.MinimumLivingWage;
@@ -75,10 +63,10 @@ namespace Diploma.Views
                 _checks.IsTextBoxEmpty(CurrentCreditPayments) &&
                 _checks.IsTextBoxEmpty(OtherExpensesLast3Months))
             {
-                _prerequisite.MonthlyRentPayment = float.Parse(MonthlyRentPayment.Text.ToString());
-                _prerequisite.AnnualTuitionFee = int.Parse(AnnualTuitionFee.Text.ToString());
-                _prerequisite.CurrentCreditPayments = float.Parse(CurrentCreditPayments.Text.ToString());
-                _prerequisite.OtherExpensesLast3Months = float.Parse(OtherExpensesLast3Months.Text.ToString());
+                _prerequisite.MonthlyRentPayment = float.Parse(MonthlyRentPayment.Text.ToString().Replace('.', ','));
+                _prerequisite.AnnualTuitionFee = int.Parse(AnnualTuitionFee.Text.ToString().Replace('.', ','));
+                _prerequisite.CurrentCreditPayments = float.Parse(CurrentCreditPayments.Text.ToString().Replace('.', ','));
+                _prerequisite.OtherExpensesLast3Months = float.Parse(OtherExpensesLast3Months.Text.ToString().Replace('.', ','));
 
                 _prerequisite.TotalMonthlyExpenses = _prerequisite.FamilyMaintenanceExpenses
                     + _prerequisite.MonthlyRentPayment
@@ -108,9 +96,11 @@ namespace Diploma.Views
 
         private void Continue(object sender, RoutedEventArgs e)
         {
-            _prerequisiteRepository.Add(_prerequisite);
+            _client.PrerequisitesId = _prerequisiteRepository.Add(_prerequisite);
+            _client.Prerequisites = new() { _prerequisite };
+            _clientForShowRepository.UpdateOverallCriteriaScore(_client.IIN, (decimal)_prerequisite.OverallCriteriaScore);
 
-            LoanWindow loanWindow = new LoanWindow(_client);
+            LoanWindow loanWindow = new LoanWindow(_client, _clientForShowRepository);
             loanWindow.Show();
 
             Close();

@@ -1,12 +1,7 @@
 ﻿using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Diploma.Repositories
 {
@@ -33,6 +28,44 @@ namespace Diploma.Repositories
             return _dbSet.ToList();           
         }
 
+        public void UpdateOverallCharacteristicsScore(string iin, decimal overallCharacteristicsScore)
+        {        
+            var client = _dbContext.ClientsForShow.FirstOrDefault(c => c.IIN == iin);
 
+            if (client != null)
+                client.OverallCharacteristicsScore = overallCharacteristicsScore;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateOverallCriteriaScore(string iin, decimal overallCriteriaScore)
+        {
+            var client = _dbContext.ClientsForShow.FirstOrDefault(c => c.IIN == iin);
+
+            if (client != null)
+                client.OverallCriteriaScore = overallCriteriaScore;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateOverallScore(string iin, decimal overallScore)
+        {
+            var client = _dbContext.ClientsForShow.FirstOrDefault(c => c.IIN == iin);
+
+            if (client != null)
+                client.OverallScore = overallScore;
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateFinalGrade(string iin, decimal finalGrade)
+        {
+            var client = _dbContext.ClientsForShow.FirstOrDefault(c => c.IIN == iin);
+
+            if (client != null)
+                client.FinalGrade = finalGrade;
+
+            _dbContext.SaveChanges();
+        }
     }
 }

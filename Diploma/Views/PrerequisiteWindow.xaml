@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Diploma.Views"
         mc:Ignorable="d"
-        Title="Финансовые возможности клиента" Height="550" Width="1000" ResizeMode="NoResize">
+        Title="Финансовые возможности клиента" Height="550" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

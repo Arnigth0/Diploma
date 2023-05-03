@@ -3,7 +3,6 @@ using Diploma.Enums;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System;
 using Diploma.Services;
 using Diploma.Repositories;
 
@@ -18,11 +17,13 @@ namespace Diploma.Views
         private readonly Client _client;
         private readonly StringToEnumService _stringToEnumService;
         private readonly ClientCharacteristicsRepository _clientCharacteristicsRepository;
+        private readonly ClientForShowRepository _clientForShowRepository;
 
         public AddClientCharacteristicsWindow(Client client)
         {
             InitializeComponent();
             _clientCharacteristicsRepository = new(new());
+            _clientForShowRepository = new(new());
             _stringToEnumService = new StringToEnumService();
             _client = client;
         }
@@ -49,29 +50,28 @@ namespace Diploma.Views
                 ClientCharacteristics clientCharacteristics = new()
                 {
                     MaritalStatus = _stringToEnumService.GetMaritalStatus(GetContentFromStackPanel(MaritalStatus)),
-                    NumberOfChildren = int.Parse(NumberOfChildren.Text.ToString()),
+                    NumberOfChildren = int.Parse(NumberOfChildren.Text.ToString().Replace('.', ',')),
                     PlaceOfResidence = _stringToEnumService.GetPlaceOfResidence(((ComboBoxItem)PlaceOfResidence.SelectedItem).Content.ToString()),
-                    LengthOfResidence = int.Parse(LengthOfResidence.Text.ToString()),
+                    LengthOfResidence = int.Parse(LengthOfResidence.Text.ToString().Replace('.', ',')),
                     Education = _stringToEnumService.GetEducation(((ComboBoxItem)Education.SelectedItem).Content.ToString()),
                     Employment = _stringToEnumService.GetEmployment(GetContentFromStackPanel(Employment)),
                     EmployerIndustry = _stringToEnumService.GetEmployerIndustry(((ComboBoxItem)EmployerIndustry.SelectedItem).Content.ToString()),
                     EmploymentStatus = _stringToEnumService.GetEmploymentStatus(GetContentFromStackPanel(EmploymentStatus)),
-                    EmploymentLength = int.Parse(EmploymentLength.Text.ToString()),
+                    EmploymentLength = int.Parse(EmploymentLength.Text.ToString().Replace('.', ',')),
                     IsBankEmployee = GetContentFromStackPanel(IsBankEmployee) == "Да" ? true : false,
                     HasPreviousCreditHistory = GetContentFromStackPanel(HasPreviousCreditHistory) == "Да" ? true : false,
                     HasOutstandingLoans = GetContentFromStackPanel(HasOutstandingLoans) == "Да" ? true : false,
                     HasCriminalRecord = GetContentFromStackPanel(HasCriminalRecord) == "Да" ? true : false,
-                    ClientId = _client.Id,
-                    Client = _client
+                    ClientId = _client.Id
                 };
 
-                clientCharacteristics.OverallCharacteristicsScore = (float)CalculateOveralScore(clientCharacteristics);
-                clientCharacteristics.Client = _client;
+                clientCharacteristics.OverallCharacteristicsScore = (float)((CalculateOveralScore(clientCharacteristics, _client) / 24.5) * 100);
+
                 _client.ClientCharacteristics = new() { clientCharacteristics };
+                _client.ClientCharacterId = _clientCharacteristicsRepository.Add(clientCharacteristics);
+                _clientForShowRepository.UpdateOverallCharacteristicsScore(_client.IIN, (decimal)clientCharacteristics.OverallCharacteristicsScore);
 
-                _clientCharacteristicsRepository.Add(clientCharacteristics);
-
-                PrerequisiteWindow prerequisiteWindow = new(_client);
+                PrerequisiteWindow prerequisiteWindow = new(_client, _clientForShowRepository);
                 prerequisiteWindow.Show();
 
                 Close();
@@ -129,11 +129,11 @@ namespace Diploma.Views
             }
         }
     
-        private static double CalculateOveralScore(ClientCharacteristics clientCharacteristics)
+        private static double CalculateOveralScore(ClientCharacteristics clientCharacteristics, Client client)
         {
             double OveralScore = 0;
 
-            OveralScore += clientCharacteristics.Client.Gender == GenderType.Female ? 2 : 0;
+            OveralScore += client.Gender == GenderType.Female ? 2 : 0;
 
             OveralScore += clientCharacteristics.MaritalStatus switch
             {

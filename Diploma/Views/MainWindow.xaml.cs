@@ -1,13 +1,12 @@
 ﻿using Diploma.Repositories;
 using System.Windows;
 using Diploma.Models;
-using System;
 using System.Collections.Generic;
-using Diploma.ViewModels;
 using Diploma.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using Diploma.Model;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace Diploma
 {
@@ -94,6 +93,22 @@ namespace Diploma
 
             ClientsForShowSchedule.ItemsSource = cfsSchedeule;
         }
-             
+
+        private void IINChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchIIN = IIN.Text.ToString();
+            ICollectionView view = CollectionViewSource.GetDefaultView(ClientsForShowSchedule.ItemsSource);
+
+            if (view != null)
+            {
+                view.Filter = item => ((ClientForShow)item).IIN.Contains(searchIIN);
+                ClientsForShowSchedule.SelectedItems.Clear();
+
+                foreach (var item in view)
+                {
+                    ClientsForShowSchedule.SelectedItems.Add(item);
+                }
+            }
+        }
     }
 }

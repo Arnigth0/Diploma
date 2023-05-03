@@ -1,9 +1,6 @@
 ﻿using Diploma.Model;
-using System;
-using System.Collections.Generic;
+using Diploma.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diploma.Repositories
 {
@@ -16,9 +13,21 @@ namespace Diploma.Repositories
             _dbContext = dataBaseContext;
         }
 
-        public void Add(Loan loan)
+        public int Add(Loan loan)
         {
-            _dbContext.Add(loan);
+            var Loans = _dbContext.Loans.FirstOrDefault(c => c.ClientId == loan.ClientId);
+
+            if (Loans != null)
+            {
+                Loans = loan;
+            }
+            else
+            {
+                _dbContext.Add(loan);
+            }
+
+            _dbContext.SaveChanges();
+            return loan.Id;
         }
 
         public int GetCount()

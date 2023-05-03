@@ -1,20 +1,7 @@
 ﻿using Diploma.Model;
-using DocumentFormat.OpenXml.Drawing;
-using Microsoft.Office.Interop.Word;
-using System;
-using System.Collections.Generic;
+using Diploma.Repositories;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Window = System.Windows.Window;
 
 namespace Diploma.Views
@@ -24,29 +11,35 @@ namespace Diploma.Views
     /// </summary>
     public partial class ConclusionWindow : Window
     {
-        private readonly Client? _client;
-        private readonly ClientCharacteristics? _clientCharacteristics;
-        private readonly Loan? _loan;
-        private readonly Prerequisite? _prerequisite;
+        private readonly ClientsRepository _clientsRepository;
+        private readonly Client _client;
+        private readonly ClientCharacteristics _clientCharacteristics;
+        private readonly Loan _loan;
+        private readonly Prerequisite _prerequisite;
+        private readonly ClientForShowRepository _clientForShowRepository;
         private float finalGrade = 0;
 
-        public ConclusionWindow(Client client)
+        public ConclusionWindow(Client client, ClientForShowRepository clientForShowRepository)
         {
             InitializeComponent();
+            _clientForShowRepository = clientForShowRepository;
+            _clientsRepository = new(new());
             _client = client;
-            _clientCharacteristics = _client.ClientCharacteristics.FirstOrDefault();
-            _loan = _client.Loan.FirstOrDefault();
-            _prerequisite = _client.Prerequisites.FirstOrDefault();
+            _clientCharacteristics = _client.ClientCharacteristics!.First();
+            _loan = _client.Loan!.First();
+            _prerequisite = _client.Prerequisites!.First();
 
             OnInit();
         }
 
         private void OnInit()
         {
-            finalGrade = (float)((_clientCharacteristics.OverallCharacteristicsScore + _loan.OverallScore + _prerequisite.OverallCriteriaScore) / 3.0);
+            finalGrade = (float)((_clientCharacteristics.OverallCharacteristicsScore! + _loan.OverallScore + _prerequisite.OverallCriteriaScore) / 3.0);
 
-            OverallCharacteristicsScoreRectangle.Width = (double)(430 * (_clientCharacteristics.OverallCharacteristicsScore / 100));
-            OverallCharacteristicsScoreRectangle.Fill = GetColorFromPercent((double)_clientCharacteristics.OverallCharacteristicsScore);
+            _clientForShowRepository.UpdateFinalGrade(_client.IIN, (decimal)finalGrade);
+
+            OverallCharacteristicsScoreRectangle.Width = (double)(430 * (_clientCharacteristics.OverallCharacteristicsScore! / 100));
+            OverallCharacteristicsScoreRectangle.Fill = GetColorFromPercent((double)_clientCharacteristics.OverallCharacteristicsScore!);
 
             OverallCriteriaScoreRectangle.Width = 430 * (_prerequisite.OverallCriteriaScore / 100);
             OverallCriteriaScoreRectangle.Fill = GetColorFromPercent(_prerequisite.OverallCriteriaScore);
@@ -78,6 +71,8 @@ namespace Diploma.Views
                 ConclusionColor.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00));
                 ConclusionColor.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xF3, 0xBA, 0xBA));
             }
+
+            _clientsRepository.Update(_client);
         }
 
         private static Brush GetColorFromPercent(double percent)

@@ -14,15 +14,16 @@ namespace Diploma.Views
         private readonly Client _client;
         private readonly Loan _loan;
         private readonly LoanRepository _loanRepository;
+        private readonly ClientForShowRepository _clientForShowRepository;
 
-        public LoanWindow(Client client)
+        public LoanWindow(Client client, ClientForShowRepository clientForShowRepository)
         {
             InitializeComponent();
             _loan = new Loan();
             _loanRepository = new LoanRepository(new());
             _checks = new Checks();
             _client = client;
-            _loan.Client = _client;
+            _clientForShowRepository = clientForShowRepository;
         }
 
         private void CalculateLoan(object sender, RoutedEventArgs e)
@@ -32,17 +33,19 @@ namespace Diploma.Views
                 _checks.IsTextBoxEmpty(LoanAmount) &&
                 _checks.IsTextBoxEmpty(InterestRate))
             {
-                _loan.AppraisalValue = float.Parse(AppraisalValue.Text.ToString());
-                _loan.CollateralDiscount = float.Parse(CollateralDiscount.Text.ToString());
-                _loan.LoanAmount = float.Parse(LoanAmount.Text.ToString());
-                _loan.InterestRate = float.Parse(InterestRate.Text.ToString());
+                _loan.AppraisalValue = float.Parse(AppraisalValue.Text.ToString().Replace('.', ','));
+                _loan.CollateralDiscount = float.Parse(CollateralDiscount.Text.ToString().Replace('.', ','));
+                _loan.LoanAmount = float.Parse(LoanAmount.Text.ToString().Replace('.', ','));
+                _loan.InterestRate = float.Parse(InterestRate.Text.ToString().Replace('.', ','));
 
                 _loan.SecurityRatio = (_loan.AppraisalValue * (1 - _loan.CollateralDiscount)) 
                     / (_loan.LoanAmount * (1 + (2 * _loan.InterestRate / 12)));
                 _loan.OverallScore = 100 * (1 - _loan.SecurityRatio);
 
+                _loan.ClientId = _client.Id;
+                _client.LoanId = _loanRepository.Add(_loan);
                 _client.Loan = new() { _loan };
-                _loanRepository.Add(_loan);
+                _clientForShowRepository.UpdateOverallScore(_client.IIN, (decimal)_loan.OverallScore);
 
                 SecurityRatio.Text = _loan.SecurityRatio.ToString();
                 SecurityRatio.Visibility = Visibility.Visible;
@@ -62,7 +65,7 @@ namespace Diploma.Views
 
         private void FinalDecision(object sender, RoutedEventArgs e)
         {
-            ConclusionWindow conclusionWindow = new(_client);
+            ConclusionWindow conclusionWindow = new(_client, _clientForShowRepository);
             conclusionWindow.Show();
 
             Close();

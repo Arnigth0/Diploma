@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Diploma.Views.CreditCalculatorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Кредитный калькулятор" Height="300" Width="600" FontSize="14" FontFamily="Calibri" ResizeMode="CanMinimize">
+        Title="Кредитный калькулятор" Height="300" Width="600" FontSize="14" FontFamily="Calibri" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#FF04129D"/>

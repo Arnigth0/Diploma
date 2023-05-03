@@ -1,11 +1,4 @@
-﻿using Azure.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Diploma.Models
+﻿namespace Diploma.Models
 {
     public class ClientForShow
     {
@@ -35,8 +28,18 @@ namespace Diploma.Models
         public decimal? OverallCriteriaScore { get; set; }
 
         /// <summary>
+        /// Общий балл характеристики заемщика
+        /// </summary>
+        public decimal? OverallCharacteristicsScore { get; set; }
+
+        /// <summary>
         /// Общая оценка займа
         /// </summary>
         public decimal? OverallScore { get; set; }
+
+        /// <summary>
+        /// Итоговая оценка
+        /// </summary>
+        public decimal? FinalGrade { get; set; }
     }
 }

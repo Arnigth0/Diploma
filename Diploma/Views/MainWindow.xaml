@@ -4,7 +4,7 @@
         x:Class="Diploma.MainWindow"
         Title="Главное меню" 
         Height="600" 
-        Width="540" 
+        Width="800" 
         WindowStartupLocation="CenterScreen" 
         SizeToContent="WidthAndHeight" 
         Foreground="White"
@@ -22,7 +22,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -53,12 +53,15 @@
                      Margin="65,0,0,0" 
                      VerticalAlignment="Center" 
                      VerticalContentAlignment="Center" 
-                     Height="20"/>
+                     Height="20" 
+                     TextChanged="IINChanged"/>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="2" Width="200">
-            <Button Height="25"
-                    Width="150"
+            <Button Height="35"
+                    Width="200"
+                    FontSize="18"
+                    FontWeight="Bold"
                     Content="Добавить клиента" 
                     Foreground="White" 
                     Background="#FF04129D" 
@@ -69,42 +72,57 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="3" >
-            <ListView x:Name="ClientsForShowSchedule" BorderBrush="Black" Margin="10" 
+            <ListView x:Name="ClientsForShowSchedule" 
+                      BorderBrush="Black" Margin="20" 
                       MouseDoubleClick="GoToBorrowerData"
                       ItemsSource="{Binding clientsForShow}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="20"/>
-                        <GridViewColumn Header="ИИН" DisplayMemberBinding="{Binding IIN}" Width="100"/>
+                        <GridViewColumn Header="ИИН" DisplayMemberBinding="{Binding IIN}" Width="90"/>
                         <GridViewColumn Header="Полное имя" DisplayMemberBinding="{Binding Fullname}" Width="100"/>
-                        <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding BirthDay}" Width="100"/>
-                        <GridViewColumn Header="Общий балл критериев заемщика" DisplayMemberBinding="{Binding OverallCriteriaScore}" Width="100"/>
-                        <GridViewColumn Header="Общая оценка" DisplayMemberBinding="{Binding OverallScore}" Width="100"/>
+                        <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding BirthDay}" Width="90"/>
+                        <GridViewColumn Header="ОБ характеристики заемщика" DisplayMemberBinding="{Binding OverallCharacteristicsScore}" />
+                        <GridViewColumn Header="ОБ критериев заемщика" DisplayMemberBinding="{Binding OverallCriteriaScore}" />
+                        <GridViewColumn Header="Общая оценка займа" DisplayMemberBinding="{Binding OverallScore}" />
+                        <GridViewColumn Header="Итоговая оценка" DisplayMemberBinding="{Binding FinalGrade}" />
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="50">
-            <Button Content="Оценка кредитоспособности" 
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Content="Оценка кредитоспособности" 
                     Height="40"
-                    Width="200"
+                    Width="250"
+                    HorizontalAlignment="Center"
                     Foreground="White" 
+                    FontSize="18"
+                    FontWeight="Bold"
                     Click="GoToBorrowerData"
                     Background="#FF04129D" 
                     BorderBrush="White" />
-        </Grid>
 
-
-        <Grid Grid.Row="2" Grid.Column="2" Height="50">
-            <Button Content="Кредитный калькулятор" 
+            <Button Grid.Row="0" Grid.Column="1" 
+                    Content="Кредитный калькулятор" 
+                    HorizontalAlignment="Center"
                     Height="40"
-                    Width="200"
+                    Width="250"
+                    FontSize="18"
+                    FontWeight="Bold"
                     Foreground="White" 
                     Background="#FF04129D" 
                     BorderBrush="White"
                     Click="GoToCreditCalculator"/>
         </Grid>
+
+
+        
 
     </Grid>
 </Window>

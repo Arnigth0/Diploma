@@ -1,9 +1,6 @@
 ﻿using Diploma.Model;
 using Diploma.Repositories;
-using DocumentFormat.OpenXml.Bibliography;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using Diploma.Models;
 using Diploma.Enums;

@@ -32,8 +32,8 @@ namespace Diploma.Views
         private void CalculationButton(object sender, RoutedEventArgs e)
         {
             // Get input values
-            double loanAmount = double.Parse(LoanAmount.Text);
-            int loanTerm = int.Parse(LoanTerm.Text);
+            double loanAmount = double.Parse(LoanAmount.Text.ToString().Replace('.', ','));
+            int loanTerm = int.Parse(LoanTerm.Text.ToString().Replace('.', ','));
             string paymentType = ((ComboBoxItem)PaymentType.SelectedItem).Content.ToString();
             string paymentFrequency = ((ComboBoxItem)PaymentFrequency.SelectedItem).Content.ToString();
             double interestRate = GetInterestRateOfPayment(paymentType);

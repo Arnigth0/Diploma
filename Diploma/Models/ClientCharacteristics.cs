@@ -1,6 +1,4 @@
 ﻿using Diploma.Enums;
-using System;
-using System.Runtime.InteropServices;
 
 namespace Diploma.Model
 {
