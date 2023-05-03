@@ -29,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="DevExpress.CrossPlatform.Printing.DrawingEngine" Version="1.0.14" />
 	  <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.0" />
 	  <PackageReference Include="EPPlus" Version="6.2.2" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />

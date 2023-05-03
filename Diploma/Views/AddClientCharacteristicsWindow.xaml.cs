@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System;
 using Diploma.Services;
+using Diploma.Repositories;
 
 namespace Diploma.Views
 {
@@ -16,10 +17,12 @@ namespace Diploma.Views
         private bool constantWork;
         private readonly Client _client;
         private readonly StringToEnumService _stringToEnumService;
+        private readonly ClientCharacteristicsRepository _clientCharacteristicsRepository;
 
         public AddClientCharacteristicsWindow(Client client)
         {
             InitializeComponent();
+            _clientCharacteristicsRepository = new(new());
             _stringToEnumService = new StringToEnumService();
             _client = client;
         }
@@ -62,8 +65,11 @@ namespace Diploma.Views
                     Client = _client
                 };
 
-                clientCharacteristics.OverallCharacteristicsScore = (float?)CalculateOveralScore(clientCharacteristics);
+                clientCharacteristics.OverallCharacteristicsScore = (float)CalculateOveralScore(clientCharacteristics);
+                clientCharacteristics.Client = _client;
                 _client.ClientCharacteristics = new() { clientCharacteristics };
+
+                _clientCharacteristicsRepository.Add(clientCharacteristics);
 
                 PrerequisiteWindow prerequisiteWindow = new(_client);
                 prerequisiteWindow.Show();

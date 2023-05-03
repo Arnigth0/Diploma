@@ -16,7 +16,7 @@
         public float AppraisalValue { get; set; }
 
         /// <summary>
-        /// Скидка на стоимость залога
+        /// Залоговый дисконт
         /// </summary>
         public float CollateralDiscount { get; set; }
 

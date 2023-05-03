@@ -7,6 +7,7 @@ using Diploma.ViewModels;
 using Diploma.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using Diploma.Model;
 
 namespace Diploma
 {
@@ -17,40 +18,34 @@ namespace Diploma
     {
         private readonly DataBaseContext _dbContext;
         private readonly ClientsRepository _clientsRepository;
-        private readonly PrepequisiteRepository _prepequisiteRepository;
-        private readonly LoanRepository _loanRepository;
-        private readonly ClientCharacteristicsRepository _clientCharacteristicsRepository;
         private readonly ClientForShowRepository _clientForShowRepository;
 
-        public MainWindow ()
+        public MainWindow()
         {
             InitializeComponent();
+
             _dbContext = new();
             _clientForShowRepository = new(_dbContext);
             _clientsRepository = new(_dbContext);
-            _loanRepository = new(_dbContext);
-            _clientCharacteristicsRepository = new(_dbContext);
-            _prepequisiteRepository = new(_dbContext);
 
             FillTheTable();
         }
 
-        public MainWindow(
-            ClientsRepository? clientsRepository,
-            ClientForShowRepository? clientForShowRepository,
-            ClientCharacteristicsRepository? clientCharacteristicsRepository,
-            LoanRepository? loanRepository,
-            PrepequisiteRepository? prepequisiteRepository
-            )
+        public MainWindow(ClientsRepository clientsRepository, ClientForShowRepository clientForShowRepository)
         {
             InitializeComponent();
 
-            _dbContext = new();
-            _clientForShowRepository = clientForShowRepository ?? new(_dbContext);
-            _clientsRepository = clientsRepository ?? new(_dbContext);
-            _loanRepository = loanRepository ?? new(_dbContext);
-            _clientCharacteristicsRepository = clientCharacteristicsRepository ?? new(_dbContext);
-            _prepequisiteRepository = prepequisiteRepository ?? new(_dbContext);
+            if (clientForShowRepository == null && clientsRepository == null)
+            {
+                _dbContext = new();
+                _clientForShowRepository = new(_dbContext);
+                _clientsRepository = new(_dbContext);
+            } 
+            else
+            {
+                _clientsRepository = clientsRepository;
+                _clientForShowRepository = clientForShowRepository;
+            }
 
             FillTheTable();
         }
@@ -59,10 +54,7 @@ namespace Diploma
         {
             AddClientWindow addClientWindow = new (
                 _clientsRepository,
-                _clientForShowRepository,
-                _clientCharacteristicsRepository,
-                _loanRepository,
-                _prepequisiteRepository
+                _clientForShowRepository
             );
 
             addClientWindow.Show();

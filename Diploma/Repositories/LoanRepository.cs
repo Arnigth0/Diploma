@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diploma.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,11 @@ namespace Diploma.Repositories
         public LoanRepository(DataBaseContext dataBaseContext)
         {
             _dbContext = dataBaseContext;
+        }
+
+        public void Add(Loan loan)
+        {
+            _dbContext.Add(loan);
         }
 
         public int GetCount()

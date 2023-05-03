@@ -41,9 +41,6 @@ namespace Diploma.Views
         {
             MainWindow main = new(
                 _clientRepository,
-                null,
-                null,
-                null,
                 null
             );
 

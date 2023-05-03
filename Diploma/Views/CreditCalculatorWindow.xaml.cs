@@ -21,7 +21,13 @@ namespace Diploma.Views
             InitializeComponent();
         }
 
-        private void ReturnToMainMenu(object sender, RoutedEventArgs e) => this.Close();       
+        private void ReturnToMainMenu(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            Close();
+        }       
 
         private void CalculationButton(object sender, RoutedEventArgs e)
         {

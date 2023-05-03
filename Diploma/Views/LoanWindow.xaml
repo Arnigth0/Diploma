@@ -1,0 +1,68 @@
+﻿<Window x:Class="Diploma.Views.LoanWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diploma.Views"
+        mc:Ignorable="d"
+        Title="Обеспечение кредита" Height="400" Width="800">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Margin="5" Grid.Column="0" Content="Оценочная стоимость залога:"/>
+        <TextBox Grid.Row="0" Margin="5" Grid.Column="1" Name="AppraisalValue"/>
+
+        <Label Grid.Row="1" Margin="5" Grid.Column="0" Content="Залоговый дисконт:"/>
+        <TextBox Grid.Row="1" Margin="5" Grid.Column="1" Name="CollateralDiscount" />
+
+        <Label Grid.Row="2" Margin="5" Grid.Column="0" Content="Сумма займа:"/>
+        <TextBox Grid.Row="2" Margin="5" Grid.Column="1" Name="LoanAmount"/>
+
+        <Label Grid.Row="3" Margin="5" Grid.Column="0" Content="Процентная ставка по займу:" Name="InterestRateLabel"/>
+        <TextBox Grid.Row="3" Margin="5" Grid.Column="1" Name="InterestRate"/>
+
+        <Button Grid.Row="4" Grid.Column="1" Content="Расчет" 
+                Click="CalculateLoan" Margin="5"
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"
+                Height="35"
+                Width="350"
+                FontWeight="Bold"
+                FontSize="18"/>
+
+        <Label Grid.Row="5" Margin="5" Grid.Column="0" Content="Коэффициент безопасности займа:" Name="SecurityRatioLabel" Visibility="Hidden"/>
+        <TextBox Grid.Row="5" Margin="5" Grid.Column="1" Name="SecurityRatio" Visibility="Hidden"/>
+
+        <Label Grid.Row="6" Margin="5" Grid.Column="0" Content="Общая оценка займа:" Name="OverallScoreLabel" Visibility="Hidden"/>
+        <TextBox Grid.Row="6" Margin="5" Grid.Column="1" Name="OverallScore" Visibility="Hidden"/>
+
+        <Button Grid.Row="7" Grid.Column="1" 
+                Visibility="Hidden"
+                Content="Окончательное решение" 
+                VerticalAlignment="Bottom"
+                Click="FinalDecision" 
+                Name="FinalDecisionButton"
+                Margin="20"
+                Foreground="White" 
+                Background="#FF04129D" 
+                BorderBrush="White"
+                Height="35"
+                Width="350"
+                FontWeight="Bold"
+                FontSize="18"/>
+    </Grid>
+</Window>

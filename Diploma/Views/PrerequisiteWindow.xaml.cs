@@ -1,4 +1,6 @@
 ﻿using Diploma.Model;
+using Diploma.Repositories;
+using Diploma.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,24 +24,28 @@ namespace Diploma.Views
     {
         private readonly Prerequisite _prerequisite;
         private readonly Client _client;
+        private readonly Checks _checks;
+        private readonly PrerequisiteRepository _prerequisiteRepository;
 
 
         public PrerequisiteWindow(Client client)
         {
             InitializeComponent();
             _prerequisite = new Prerequisite();
+            _prerequisiteRepository = new PrerequisiteRepository(new());
+            _checks = new Checks();
             _client = client;
             _prerequisite.Client = client;
-            client.Prerequisites = new() { _prerequisite };
+            _client.Prerequisites = new() { _prerequisite };
         }
 
         private void CalulateTotalMonthlyIncome(object sender, RoutedEventArgs e)
         {
-            if (IsTextBoxEmpty(MinimumLivingWage) && 
-                IsTextBoxEmpty(DependentPersonsCount) && 
-                IsTextBoxEmpty(MaxMonthlyLoanPayment) && 
-                IsTextBoxEmpty(AverageSalaryLast3Months) && 
-                IsTextBoxEmpty(AnnualOtherIncome))
+            if (_checks.IsTextBoxEmpty(MinimumLivingWage) &&
+                _checks.IsTextBoxEmpty(DependentPersonsCount) &&
+                _checks.IsTextBoxEmpty(MaxMonthlyLoanPayment) && 
+                _checks.IsTextBoxEmpty(AverageSalaryLast3Months) && 
+                _checks.IsTextBoxEmpty(AnnualOtherIncome))
             {
                 _prerequisite.MinimumLivingWage = float.Parse(MinimumLivingWage.Text.ToString());
                 _prerequisite.DependentPersonsCount = int.Parse(DependentPersonsCount.Text.ToString());
@@ -64,10 +70,10 @@ namespace Diploma.Views
 
         private void CalculateTotalMonthlyExpensesTextBox(object sender, RoutedEventArgs e)
         {
-            if (IsTextBoxEmpty(MonthlyRentPayment) &&
-                IsTextBoxEmpty(AnnualTuitionFee) &&
-                IsTextBoxEmpty(CurrentCreditPayments) &&
-                IsTextBoxEmpty(OtherExpensesLast3Months))
+            if (_checks.IsTextBoxEmpty(MonthlyRentPayment) &&
+                _checks.IsTextBoxEmpty(AnnualTuitionFee) &&
+                _checks.IsTextBoxEmpty(CurrentCreditPayments) &&
+                _checks.IsTextBoxEmpty(OtherExpensesLast3Months))
             {
                 _prerequisite.MonthlyRentPayment = float.Parse(MonthlyRentPayment.Text.ToString());
                 _prerequisite.AnnualTuitionFee = int.Parse(AnnualTuitionFee.Text.ToString());
@@ -102,12 +108,12 @@ namespace Diploma.Views
 
         private void Continue(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
+            _prerequisiteRepository.Add(_prerequisite);
 
-        private static bool IsTextBoxEmpty(TextBox textBox)
-        {
-            return !string.IsNullOrEmpty(textBox.Text.ToString());
+            LoanWindow loanWindow = new LoanWindow(_client);
+            loanWindow.Show();
+
+            Close();
         }
     }
 }

@@ -16,38 +16,23 @@ namespace Diploma.Views
     public partial class AddClientWindow : Window
     {
         private readonly ClientsRepository _clientsRepository;
-        private readonly PrepequisiteRepository _prepequisiteRepository;
-        private readonly LoanRepository _loanRepository;
-        private readonly ClientCharacteristicsRepository _clientCharacteristicsRepository;
         private readonly ClientForShowRepository _clientForShowRepository;
 
         public AddClientWindow(
             ClientsRepository clientsRepository, 
-            ClientForShowRepository clientForShowRepository, 
-            ClientCharacteristicsRepository clientCharacteristicsRepository, 
-            LoanRepository loanRepository, 
-            PrepequisiteRepository prepequisiteRepository
+            ClientForShowRepository clientForShowRepository
             )
         {
             InitializeComponent();
             _clientsRepository = clientsRepository;
-            _clientCharacteristicsRepository = clientCharacteristicsRepository;
-            _loanRepository = loanRepository;
-            _prepequisiteRepository = prepequisiteRepository;
             _clientForShowRepository = clientForShowRepository;       
         }
 
         private void ReturnToMainMenu(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new (
-                _clientsRepository,
-                _clientForShowRepository,
-                _clientCharacteristicsRepository,
-                _loanRepository,
-                _prepequisiteRepository
-            );
-
+            MainWindow main = new(_clientsRepository, _clientForShowRepository);
             main.Show();
+
             Close();
         }
 
@@ -63,10 +48,7 @@ namespace Diploma.Views
                     Gender = GetGenderByIIN(IIN.Text.ToString()),
                     BirthDay = GetDateFromIIN(IIN.Text.ToString()),
                     Age = (int)(DateTime.Today.Subtract(GetDateFromIIN(IIN.Text.ToString())).Days / 365),
-                    Address = Address.Text.ToString(),
-                    ClientCharacterId = _clientCharacteristicsRepository.GetCount(),
-                    LoanId = _loanRepository.GetCount(),
-                    PrerequisitesId = _prepequisiteRepository.GetCount(),
+                    Address = Address.Text.ToString()
                 };
 
                 //MessageBox.Show(@$"
