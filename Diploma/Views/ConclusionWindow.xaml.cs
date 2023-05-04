@@ -75,6 +75,12 @@ namespace Diploma.Views
             _clientsRepository.Update(_client);
         }
 
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+        }
+
         private static Brush GetColorFromPercent(double percent)
         {
             // Используем зеленый цвет как максимальный и красный как минимальный
